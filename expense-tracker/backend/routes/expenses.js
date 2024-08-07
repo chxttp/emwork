@@ -57,22 +57,3 @@ router.delete('/:id', async (req, res) => {
 
 // In routes/expenses.js
 // Get expenses by month
-router.get('/:month', async (req, res) => {
-    try {
-        const month = new Date(req.params.month);
-        const startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
-        const endOfMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0, 23, 59, 59);
-
-        const expenses = await Expense.find({
-            date: {
-                $gte: startOfMonth,
-                $lte: endOfMonth
-            }
-        });
-
-        console.log('Expenses fetched:', expenses); // Log the fetched expenses
-        res.send(expenses);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
